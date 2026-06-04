@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺中市景點推薦 — 現代探索誌</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. 基礎設定與色彩變數 (嚴格遵循 60-30-10 比例)
+           ========================================================================== */
+        :root {
+            --bg-beige: #FDFBF7;        /* 60% 主色：溫潤優雅的淡米色背景 */
+            --primary-green: #3E4A34;   /* 30% 輔助色：專業深沉的橄欖綠 */
+            --sage-green: #607254;      /* 輔助色延伸：人文草綠 */
+            --accent-gold: #D4A373;     /* 10% 強調色：質感暖陽金 */
+            --text-dark: #2C3524;       /* 內文深色 */
+            --text-light: #FDFBF7;      /* 內文淺色 */
+            --card-bg: #FFFFFF;         /* 卡片純白底襯 */
+            --font-sans: 'Noto Sans TC', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-beige);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           2. 固定式導覽列 (Sticky Navbar) — Flexbox 佈局
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(62, 74, 52, 0.96); /* 30% 輔助色基礎，帶微透明感 */
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo i {
+            color: var(--accent-gold); /* 10% 強調色點綴 */
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: rgba(253, 251, 247, 0.85);
+            font-size: 1.05rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition-smooth);
+        }
+
+        /* 導覽列 Hover 特效：底線由中心向外延伸 */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-gold);
+            transition: var(--transition-smooth);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           3. Hero Section
+           ========================================================================== */
+        .hero {
+            position: relative;
+            height: 75vh;
+            min-height: 550px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* 背景套用您提供的 00.jpg 素材 */
+            background: linear-gradient(rgba(62, 74, 52, 0.5), rgba(44, 53, 36, 0.7)), 
+                        url('00.jpg') no-repeat center center/cover;
+            color: var(--text-light);
+            padding: 0 1.5rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 3.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            line-height: 1.3;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: rgba(253, 251, 247, 0.9);
+            letter-spacing: 1.5px;
+            font-weight: 400;
+        }
+
+        /* CTA 按鈕設計 (10% 強調色體現) */
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: white;
+            padding: 1.1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(212, 163, 115, 0.4);
+            border: 2px solid transparent;
+            transition: var(--transition-smooth);
+            letter-spacing: 1px;
+        }
+
+        .btn-cta:hover {
+            background-color: transparent;
+            color: var(--text-light);
+            border-color: var(--text-light);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+        }
+
+        /* ==========================================================================
+           4. 城市導言區塊 (套用素材文字)
+           ========================================================================== */
+        .intro-section {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 6rem 2rem 3rem 2rem;
+            text-align: center;
+        }
+
+        .intro-badge {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .intro-text {
+            font-size: 1.25rem;
+            color: var(--primary-green);
+            font-weight: 400;
+            line-height: 2.1;
+            text-align: justify;
+            text-justify: inter-ideograph;
+        }
+
+        /* ==========================================================================
+           5. 精選景點卡片區 (CSS Grid 響應式配置)
+           ========================================================================== */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 7rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            color: var(--primary-green);
+            font-weight: 700;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        /* 標題裝飾底線 */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 35%;
+            width: 30%;
+            height: 4px;
+            background-color: var(--accent-gold);
+            border-radius: 2px;
+        }
+
+        /* CSS Grid 三欄佈局核心 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        /* 卡片本體 */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(62, 74, 52, 0.03);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(62, 74, 52, 0.05);
+        }
+
+        /* 卡片整體 Hover 特效 */
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 45px rgba(62, 74, 52, 0.12);
+        }
+
+        /* 關鍵：圖片尺寸統一與裁切技術 */
+        .card-img-wrap {
+            position: relative;
+            height: 240px; /* 強制固定高度，消除原始素材大小不一的落差 */
+            width: 100%;
+            overflow: hidden;
+            background-color: #eaeaea;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 核心關鍵：自動完美縮放裁切填滿容器，絕不壓扁變形 */
+            object-position: center;
+            transition: var(--transition-smooth);
+        }
+
+        /* 圖片 Hover 微特效 */
+        .card:hover .card-img-wrap img {
+            transform: scale(1.08);
+            filter: brightness(0.95);
+        }
+
+        /* 卡片文字與內容排版 */
+        .card-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-tag {
+            background-color: rgba(214, 163, 115, 0.12); /* 淡淡的強調色點綴襯托 */
+            color: var(--primary-green);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            font-size: 1.45rem;
+            color: var(--primary-green);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card-text {
+            font-size: 0.96rem;
+            color: #555;
+            margin-bottom: 1.8rem;
+            line-height: 1.7;
+            text-align: justify;
+            flex-grow: 1;
+        }
+
+        /* 位置資訊樣式 */
+        .card-location {
+            font-size: 0.9rem;
+            color: var(--sage-green);
+            font-weight: 500;
+            border-top: 1px solid rgba(62, 74, 52, 0.08);
+            padding-top: 1rem;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ==========================================================================
+           6. Footer 頁尾區塊
+           ========================================================================== */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(253, 251, 247, 0.1);
+            padding-bottom: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .footer-logo span {
+            color: var(--accent-gold);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .footer-socials a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: rgba(253, 251, 247, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-socials a:hover {
+            background-color: var(--accent-gold);
+            transform: translateY(-4px);
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: rgba(253, 251, 247, 0.55);
+        }
+
+        /* ==========================================================================
+           7. RWD 響應式中斷點設計
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr); /* 平板端切換為雙欄 */
+                gap: 2rem;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* 行動端簡化導覽列項目 */
+            }
+            .grid-container {
+                grid-template-columns: 1fr; /* 手機端自動切換為流暢的單欄滿版卡片 */
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .intro-section {
+                padding: 4rem 1.5rem 1.5rem 1.5rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fa-solid fa-map-location-dot"></i> 臺中探索誌
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#intro">城市簡介</a></li>
+                <li><a href="#spots">精選景點</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">探索臺中之美</h1>
+            <p class="hero-subtitle">走進世界獨一無二的美聲涵洞，漫步歷史州廳與日落溼地，感受中臺灣的多元魅力。</p>
+            <a href="#spots" class="btn-cta">開啟探索旅程 <i class="fa-solid fa-arrow-down" style="margin-left: 8px;"></i></a>
+        </div>
+    </header>
+
+    <section class="intro-section" id="intro">
+        <span class="intro-badge">TAICHUNG CITY</span>
+        <p class="intro-text">
+            臺中市，通稱臺中，簡稱「中」，為中華民國直轄市，臺灣六都之一，也是中臺灣唯一的直轄市。周邊與臺灣省的六個縣相鄰，北鄰苗栗縣、新竹縣，南鄰彰化縣、南投縣，東隔中央山脈與花蓮縣相鄰，東北以中央山脈和雪山山脈毗鄰宜蘭縣，西臨臺灣海峽。
+        </p>
+    </section>
+
+    <main class="main-container" id="spots">
+        <div class="section-header">
+            <h2 class="section-title">精選景點推薦</h2>
+        </div>
+
+        <div class="grid-container">
+            <article class="card">
+                <div class="card-img-wrap">
+                    <img src="01.jpeg" alt="臺中國家歌劇院">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-tag">當代建築</span>
+                    </div>
+                    <h3 class="card-title">臺中國家歌劇院</h3>
+                    <p class="card-text">極具特色的大型公有展演空間，由日本建築師伊東豊雄設計，以人類最原始的「洞窟」、「地穴」的概念設計成世界獨一無二的美聲涵洞曲牆建築，歷時五年時間完成，內部規劃有大劇院、中劇院及小型實驗劇場。</p>
+                    <div class="card-location">
+                        <i class="fa-solid fa-location-dot"></i> 西屯區惠來路二段101號
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-img-wrap">
+                    <img src="02.jpeg" alt="臺中州廳">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-tag">國定古蹟</span>
+                    </div>
+                    <h3 class="card-title">臺中州廳</h3>
+                    <p class="card-text">為一座國定古蹟，二戰後由臺中市政府遷入辦公，由於該建築原為日治時期之「州政府」，因而沿用此稱呼。周邊鄰近臺中文學公園、臺中刑務所演武場、宮原眼科等熱門景點，富含歷史文化底蘊。</p>
+                    <div class="card-location">
+                        <i class="fa-solid fa-location-dot"></i> 西區民權路99號
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-img-wrap">
+                    <img src="03.jpeg" alt="審計新村">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-tag">文創聚落</span>
+                    </div>
+                    <h3 class="card-title">審計新村</h3>
+                    <p class="card-text">原為臺灣省政府審計處員工宿舍，在凍省之後成了閒置空間荒廢多年，近年配合臺中市政府勞工局「摘星青年、築夢臺中」創業基地進駐計畫，重新規劃轉型成為極具人氣的青年創業基地與文創園區。</p>
+                    <div class="card-location">
+                        <i class="fa-solid fa-location-dot"></i> 西區民生路368巷
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-img-wrap">
+                    <img src="04.jpeg" alt="高美濕地">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-tag">生態保護區</span>
+                    </div>
+                    <h3 class="card-title">高美濕地</h3>
+                    <p class="card-text">高美野生動物保護區是臺灣西海岸一處豐富的生態保護區，綜合淡水注水與潮汐交替所構成的海岸溼地。隨臺中港北岸沙堤築起後，大甲溪挾帶泥沙在此淤積，成為現今觀賞夕陽與豐富潮間帶生態的絕佳聖地。</p>
+                    <div class="card-location">
+                        <i class="fa-solid fa-location-dot"></i> 清水區大甲溪出海口南側
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-img-wrap">
+                    <img src="05.jpeg" alt="中央公園">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span class="card-tag">都市綠肺</span>
+                    </div>
+                    <h3 class="card-title">中央公園</h3>
+                    <p class="card-text">總面積約67公頃，為臺灣面積第四大之公園。基地前身為水湳機場，內留有歷史建築水湳機場營舍與原日軍臺中飛行場機槍堡、老樹公園等歷史遺跡，融合了都市生態與歷史記憶。</p>
+                    <div class="card-location">
+                        <i class="fa-solid fa-location-dot"></i> 西屯區水湳經貿園區
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">臺中<span>探索誌</span></div>
+            <ul class="footer-socials">
+                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 臺中市景點推薦網. 保留所有權利.</p>
+            <p>設計實踐：60-30-10 比例美學 & RWD 響應式排版</p>
+        </div>
+    </footer>
+
+</body>
+</html>
